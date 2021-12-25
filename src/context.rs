@@ -73,4 +73,12 @@ impl Context {
             _ => Err(FlagError::TypeError),
         }
     }
+
+    pub fn int_flag(&self, name: &str) -> Result<isize, FlagError> {
+        let r = self.result_flag_value(name)?;
+        match r {
+            FlagValue::Int(val) => Ok(val),
+            _ => Err(FlagError::TypeError),
+        }
+    }
 }
