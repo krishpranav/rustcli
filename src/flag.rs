@@ -25,9 +25,26 @@ pub enum FlagValue {
 }
 
 impl Flag {
-
     pub fn new<T: Into<String>>(name: T, flag_type: FlagType) -> Self {
         let name = name.into();
+        if name.starts_with('-') {
+            panic!(
+                r#""{}" is invalid flag name. Flag name cannnot start with "-"."#,
+                name
+            )
+        }
+        if name.contains('=') {
+            panic!(
+                r#""{}" is invalid flag name. Flag name cannnot contain "="."#,
+                name
+            )
+        }
+        if name.contains(' ') {
+            panic!(
+                r#""{}" is invalid flag name. Flag name cannnot contain blankspaces."#,
+                name
+            )
+        }
 
         Self {
             name,
@@ -41,4 +58,15 @@ impl Flag {
         self.description = Some(description.into());
         self
     }
+
+    pub fn alias<T: Into<String>>(mut self, name: T) -> Self {
+        if let Some(ref mut alias) = self.alias {
+            (*alias).push(name.into());
+        } else {
+            self.alias = Some(vec![name.into()]);
+        }
+        self
+    }
+
+    
 }
