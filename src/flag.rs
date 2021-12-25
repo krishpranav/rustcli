@@ -25,5 +25,20 @@ pub enum FlagValue {
 }
 
 impl Flag {
-    
+
+    pub fn new<T: Into<String>>(name: T, flag_type: FlagType) -> Self {
+        let name = name.into();
+
+        Self {
+            name,
+            description: None,
+            flag_type,
+            alias: None,
+        }
+    }
+
+    pub fn description<T: Into<String>>(mut self, description: T) -> Self {
+        self.description = Some(description.into());
+        self
+    }
 }
