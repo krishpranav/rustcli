@@ -42,4 +42,19 @@ impl Context {
             help_text,
         }
     }
+
+    fn result_flag_value(&self, name: &str) -> Result<FlagValue, FlagError> {
+        let flag = self
+            .flags
+            .as_ref()
+            .and_then(|flags| flags.iter().find(|flag| flag.0 == name));
+
+        match flag {
+            Some(f) => match &f.1 {
+                Ok(val) => Ok(val.to_owned()),
+                Err(e) => Err(e.to_owned()),
+            },
+            None => Err(FlagError::Undefined),
+        }
+    }
 }
