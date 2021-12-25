@@ -1,0 +1,12 @@
+# build folder 
+/target
+
+# cargo lock
+Cargo.lock
+
+# ide cache
+.vscode/
+.idea/
+
+# system cache 
+.DS_Store
