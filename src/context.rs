@@ -90,4 +90,7 @@ impl Context {
         }
     }
 
+    pub fn help(&self) {
+        println!("{}", self.help_text);
+    }
 }
