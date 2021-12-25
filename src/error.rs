@@ -21,3 +21,15 @@ impl fmt::Display for Errors {
         }
     }
 }
+
+impl error::Error for Errors {
+    fn description(&self) -> &str {
+        match *self {
+            Errors::NotFound => "Flag not found",
+            Errors::Undefined => "Flag undefined",
+            Errors::TypeError => "Flag type mismatch",
+            Errors::ValueTypeError => "Value type mismatch",
+            Errors::ArgumentError => "Illegal argument",
+        }
+    }
+}
