@@ -57,4 +57,12 @@ impl Context {
             None => Err(FlagError::Undefined),
         }
     }
+
+    pub fn bool_flag(&self, name: &str) -> bool {
+        let r = self.result_flag_value(name);
+        match r {
+            Ok(FlagValue::Bool(val)) => val,
+            _ => false,
+        }
+    }
 }
