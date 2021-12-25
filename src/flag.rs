@@ -41,7 +41,7 @@ impl Flag {
         }
         if name.contains(' ') {
             panic!(
-                r#""{}" is invalid flag name. Flag name cannnot contain blankspaces."#,
+                r#""{}" is invalid flag name. Flag name cannnot contain whitespaces."#,
                 name
             )
         }
@@ -77,27 +77,140 @@ impl Flag {
         }
     }
 
-    pub fn value(&self, v: Option<String>) -> Result<FlagValue, FlagError> {
+    pub fn value(&self, v: Option<String>) -> Result<FlagValue, Error> {
         match self.flag_type {
             FlagType::Bool => Ok(FlagValue::Bool(true)),
             FlagType::String => match v {
                 Some(s) => Ok(FlagValue::String(s)),
-                None => Err(FlagError::ArgumentError),
+                None => Err(Error::ArgumentError),
             },
             FlagType::Int => match v {
                 Some(i) => match i.parse::<isize>() {
                     Ok(i) => Ok(FlagValue::Int(i)),
-                    Err(_) => Err(FlagError::ValueTypeError),
+                    Err(_) => Err(Error::ValueTypeError),
                 },
-                None => Err(FlagError::ArgumentError),
+                None => Err(Error::ArgumentError),
             },
             FlagType::Float => match v {
                 Some(f) => match f.parse::<f64>() {
                     Ok(f) => Ok(FlagValue::Float(f)),
-                    Err(_) => Err(FlagError::ValueTypeError),
+                    Err(_) => Err(Error::ValueTypeError),
                 },
-                None => Err(FlagError::ArgumentError),
+                None => Err(Error::ArgumentError),
             },
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::{Flag, FlagType, FlagValue};
+
+    #[test]
+    fn opiton_index() {
+        let v = vec![
+            "cli".to_string(),
+            "command".to_string(),
+            "-a".to_string(),
+            "--bool".to_string(),
+            "-c".to_string(),
+        ];
+        {
+            let f = Flag::new("bool", FlagType::Bool);
+            assert_eq!(f.option_index(&v), Some(3));
+        }
+        {
+            let f = Flag::new("age", FlagType::Bool).alias("a");
+            assert_eq!(f.option_index(&v), Some(2));
+        }
+        {
+            let f = Flag::new("dance", FlagType::Bool);
+            assert_eq!(f.option_index(&v), None);
+        }
+    }
+
+    #[test]
+    #[should_panic]
+    fn construct_fail_1() {
+        Flag::new("bo=ol", FlagType::Bool);
+    }
+
+    #[test]
+    #[should_panic]
+    fn construct_fail_2() {
+        Flag::new("------bool", FlagType::Bool);
+    }
+
+    #[test]
+    #[should_panic]
+    fn construct_fail_3() {
+        Flag::new("cool flag", FlagType::Bool);
+    }
+
+    #[test]
+    fn bool_flag_test() {
+        let bool_flag = Flag::new("bool", FlagType::Bool);
+        let v = vec![
+            "cli".to_string(),
+            "command".to_string(),
+            "args".to_string(),
+            "--bool".to_string(),
+        ];
+
+        match bool_flag.value(Some(v[3].to_owned())) {
+            Ok(FlagValue::Bool(val)) => assert!(val),
+            _ => assert!(false),
+        }
+    }
+
+    #[test]
+    fn string_flag_test() {
+        let string_flag = Flag::new("string", FlagType::String);
+        let v = vec![
+            "cli".to_string(),
+            "command".to_string(),
+            "args".to_string(),
+            "--string".to_string(),
+            "test".to_string(),
+        ];
+
+        match string_flag.value(Some(v[4].to_owned())) {
+            Ok(FlagValue::String(val)) => assert_eq!("test".to_string(), val),
+            _ => assert!(false),
+        }
+    }
+
+    #[test]
+    fn int_flag_test() {
+        let int_flag = Flag::new("int", FlagType::Int);
+        let v = vec![
+            "cli".to_string(),
+            "command".to_string(),
+            "args".to_string(),
+            "--int".to_string(),
+            "100".to_string(),
+        ];
+
+        match int_flag.value(Some(v[4].to_owned())) {
+            Ok(FlagValue::Int(val)) => assert_eq!(100, val),
+            _ => assert!(false),
+        }
+    }
+
+    #[test]
+    fn float_flag_test() {
+        let float_flag = Flag::new("float", FlagType::Float);
+        let v = vec![
+            "cli".to_string(),
+            "command".to_string(),
+            "args".to_string(),
+            "--float".to_string(),
+            "1.23".to_string(),
+        ];
+
+        match float_flag.value(Some(v[4].to_owned())) {
+            Ok(FlagValue::Float(val)) => assert_eq!(1.23, val),
+            _ => assert!(false),
         }
     }
 }
