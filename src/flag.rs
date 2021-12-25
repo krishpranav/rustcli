@@ -77,4 +77,27 @@ impl Flag {
         }
     }
 
+    pub fn value(&self, v: Option<String>) -> Result<FlagValue, FlagError> {
+        match self.flag_type {
+            FlagType::Bool => Ok(FlagValue::Bool(true)),
+            FlagType::String => match v {
+                Some(s) => Ok(FlagValue::String(s)),
+                None => Err(FlagError::ArgumentError),
+            },
+            FlagType::Int => match v {
+                Some(i) => match i.parse::<isize>() {
+                    Ok(i) => Ok(FlagValue::Int(i)),
+                    Err(_) => Err(FlagError::ValueTypeError),
+                },
+                None => Err(FlagError::ArgumentError),
+            },
+            FlagType::Float => match v {
+                Some(f) => match f.parse::<f64>() {
+                    Ok(f) => Ok(FlagValue::Float(f)),
+                    Err(_) => Err(FlagError::ValueTypeError),
+                },
+                None => Err(FlagError::ArgumentError),
+            },
+        }
+    }
 }
