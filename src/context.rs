@@ -81,4 +81,13 @@ impl Context {
             _ => Err(FlagError::TypeError),
         }
     }
+
+    pub fn float_flag(&self, name: &str) -> Result<f64, FlagError> {
+        let r = self.result_flag_value(name)?;
+        match r {
+            FlagValue::Float(val) => Ok(val),
+            _ => Err(FlagError::TypeError),
+        }
+    }
+
 }
