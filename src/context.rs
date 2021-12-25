@@ -65,4 +65,12 @@ impl Context {
             _ => false,
         }
     }
+
+    pub fn string_flag(&self, name: &str) -> Result<String, FlagError> {
+        let r = self.result_flag_value(name)?;
+        match r {
+            FlagValue::String(val) => Ok(val),
+            _ => Err(FlagError::TypeError),
+        }
+    }
 }
