@@ -68,5 +68,13 @@ impl Flag {
         self
     }
 
-    
+    pub fn option_index(&self, v: &[String]) -> Option<usize> {
+        match &self.alias {
+            Some(alias) => v.iter().position(|r| {
+                r == &format!("--{}", &self.name) || alias.iter().any(|a| r == &format!("-{}", a))
+            }),
+            None => v.iter().position(|r| r == &format!("--{}", &self.name)),
+        }
+    }
+
 }
