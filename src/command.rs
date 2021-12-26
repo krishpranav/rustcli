@@ -32,4 +32,33 @@ impl Command {
         self.action = Some(action);
         self
     }
+
+    pub fn flag(mut self, flag: Flag) -> Self {
+        if let Some(ref mut flags) = self.flags {
+            (*flags).push(flag);
+        } else {
+            self.flags = Some(vec![flag]);
+        }
+        self
+    }
+
+    pub fn alias<T: Into<String>>(mut self, name: T) -> Self {
+        if let Some(ref mut alias) = self.alias {
+            (*alias).push(name.into())
+        } else {
+            self.alias = Some(vec![name.into()]);
+        }
+        self
+    }
+
+    pub fn run(&self, args: Vec<String>) {
+        if args.contains(&"-h".to_string()) || args.contains(&"--help".to_string()) {
+            self.help();
+            return;
+        }
+        match self.action {
+            Some(action) => action(&Context::new(args, self.flags.clone(), self.help_text())),
+            None => self.help(),
+        }
+    }
 }
