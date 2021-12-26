@@ -1,4 +1,4 @@
-use crate::error::Error;
+use crate::error::Errors;
 
 #[derive(Clone, Debug)]
 pub struct Flag {
@@ -77,26 +77,26 @@ impl Flag {
         }
     }
 
-    pub fn value(&self, v: Option<String>) -> Result<FlagValue, Error> {
+    pub fn value(&self, v: Option<String>) -> Result<FlagValue, Errors> {
         match self.flag_type {
             FlagType::Bool => Ok(FlagValue::Bool(true)),
             FlagType::String => match v {
                 Some(s) => Ok(FlagValue::String(s)),
-                None => Err(Error::ArgumentError),
+                None => Err(Errors::ArgumentError),
             },
             FlagType::Int => match v {
                 Some(i) => match i.parse::<isize>() {
                     Ok(i) => Ok(FlagValue::Int(i)),
-                    Err(_) => Err(Error::ValueTypeError),
+                    Err(_) => Err(Errors::ValueTypeError),
                 },
-                None => Err(Error::ArgumentError),
+                None => Err(Errors::ArgumentError),
             },
             FlagType::Float => match v {
                 Some(f) => match f.parse::<f64>() {
                     Ok(f) => Ok(FlagValue::Float(f)),
-                    Err(_) => Err(Error::ValueTypeError),
+                    Err(_) => Err(Errors::ValueTypeError),
                 },
-                None => Err(Error::ArgumentError),
+                None => Err(Errors::ArgumentError),
             },
         }
     }

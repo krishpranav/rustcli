@@ -1,10 +1,14 @@
-// TODO: update the library 
+mod action;
+mod app;
+mod command;
+mod context;
+pub mod error;
+mod flag;
+mod help;
 
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        let result = 2 + 2;
-        assert_eq!(result, 4);
-    }
-}
+pub use action::Action;
+pub use app::App;
+pub use command::Command;
+pub use context::Context;
+pub use flag::{Flag, FlagType, FlagValue};
+use help::Help;

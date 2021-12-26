@@ -1,9 +1,9 @@
-use crate::error::Error;
+use crate::error::Errors;
 use crate::{Flag, FlagType, FlagValue};
 
 pub struct Context {
     pub args: Vec<String>,
-    flags: Option<Vec<(String, Result<FlagValue, Error>)>>,
+    flags: Option<Vec<(String, Result<FlagValue, Errors>)>>,
     help_text: String,
 }
 
@@ -28,7 +28,7 @@ impl Context {
                         };
                         v.push((flag.name.to_string(), flag.value(val)))
                     } else {
-                        v.push((flag.name.to_string(), Err(Error::NotFound)))
+                        v.push((flag.name.to_string(), Err(Errors::NotFound)))
                     }
                 }
                 Some(v)
@@ -43,7 +43,7 @@ impl Context {
         }
     }
 
-    fn result_flag_value(&self, name: &str) -> Result<FlagValue, Error> {
+    fn result_flag_value(&self, name: &str) -> Result<FlagValue, Errors> {
         let flag = self
             .flags
             .as_ref()
@@ -54,7 +54,7 @@ impl Context {
                 Ok(val) => Ok(val.to_owned()),
                 Err(e) => Err(e.to_owned()),
             },
-            None => Err(Error::Undefined),
+            None => Err(Errors::Undefined),
         }
     }
 
@@ -66,27 +66,27 @@ impl Context {
         }
     }
 
-    pub fn string_flag(&self, name: &str) -> Result<String, Error> {
+    pub fn string_flag(&self, name: &str) -> Result<String, Errors> {
         let r = self.result_flag_value(name)?;
         match r {
             FlagValue::String(val) => Ok(val),
-            _ => Err(Error::TypeError),
+            _ => Err(Errors::TypeError),
         }
     }
 
-    pub fn int_flag(&self, name: &str) -> Result<isize, Error> {
+    pub fn int_flag(&self, name: &str) -> Result<isize, Errors> {
         let r = self.result_flag_value(name)?;
         match r {
             FlagValue::Int(val) => Ok(val),
-            _ => Err(Error::TypeError),
+            _ => Err(Errors::TypeError),
         }
     }
 
-    pub fn float_flag(&self, name: &str) -> Result<f64, Error> {
+    pub fn float_flag(&self, name: &str) -> Result<f64, Errors> {
         let r = self.result_flag_value(name)?;
         match r {
             FlagValue::Float(val) => Ok(val),
-            _ => Err(Error::TypeError),
+            _ => Err(Errors::TypeError),
         }
     }
 
@@ -97,7 +97,7 @@ impl Context {
 
 #[cfg(test)]
 mod tests {
-    use crate::error::Error;
+    use crate::error::Errors;
     use crate::{Context, Flag, FlagType};
 
     #[test]
@@ -131,21 +131,21 @@ mod tests {
         assert_eq!(context.int_flag("int"), Ok(100));
         assert_eq!(context.float_flag("float"), Ok(1.23));
 
-        assert_eq!(context.int_flag("string"), Err(Error::TypeError));
+        assert_eq!(context.int_flag("string"), Err(Errors::TypeError));
 
         assert_eq!(
             context.float_flag("invalid_float"),
-            Err(Error::ValueTypeError)
+            Err(Errors::ValueTypeError)
         );
 
         assert_eq!(
             context.string_flag("not_registered"),
-            Err(Error::Undefined)
+            Err(Errors::Undefined)
         );
 
         assert_eq!(
             context.string_flag("not_specified"),
-            Err(Error::NotFound)
+            Err(Errors::NotFound)
         );
     }
 }
