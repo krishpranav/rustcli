@@ -35,4 +35,4 @@ fn main() {
 }
 ```
 
-- for more tutorial visit the [docs]()
+- for more tutorial visit the [docs](https://github.com/krishpranav/rustcli/blob/master/README.md)
