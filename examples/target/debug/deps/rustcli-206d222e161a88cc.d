@@ -1,0 +1,14 @@
+/Users/apple/hackingtools/rusthacking/rustcli/examples/target/debug/deps/rustcli-206d222e161a88cc.rmeta: /Users/apple/.cargo/git/checkouts/rustcli-f076f9c590cb5e93/a87637c/src/lib.rs /Users/apple/.cargo/git/checkouts/rustcli-f076f9c590cb5e93/a87637c/src/action.rs /Users/apple/.cargo/git/checkouts/rustcli-f076f9c590cb5e93/a87637c/src/app.rs /Users/apple/.cargo/git/checkouts/rustcli-f076f9c590cb5e93/a87637c/src/command.rs /Users/apple/.cargo/git/checkouts/rustcli-f076f9c590cb5e93/a87637c/src/context.rs /Users/apple/.cargo/git/checkouts/rustcli-f076f9c590cb5e93/a87637c/src/error.rs /Users/apple/.cargo/git/checkouts/rustcli-f076f9c590cb5e93/a87637c/src/flag.rs /Users/apple/.cargo/git/checkouts/rustcli-f076f9c590cb5e93/a87637c/src/help.rs
+
+/Users/apple/hackingtools/rusthacking/rustcli/examples/target/debug/deps/librustcli-206d222e161a88cc.rlib: /Users/apple/.cargo/git/checkouts/rustcli-f076f9c590cb5e93/a87637c/src/lib.rs /Users/apple/.cargo/git/checkouts/rustcli-f076f9c590cb5e93/a87637c/src/action.rs /Users/apple/.cargo/git/checkouts/rustcli-f076f9c590cb5e93/a87637c/src/app.rs /Users/apple/.cargo/git/checkouts/rustcli-f076f9c590cb5e93/a87637c/src/command.rs /Users/apple/.cargo/git/checkouts/rustcli-f076f9c590cb5e93/a87637c/src/context.rs /Users/apple/.cargo/git/checkouts/rustcli-f076f9c590cb5e93/a87637c/src/error.rs /Users/apple/.cargo/git/checkouts/rustcli-f076f9c590cb5e93/a87637c/src/flag.rs /Users/apple/.cargo/git/checkouts/rustcli-f076f9c590cb5e93/a87637c/src/help.rs
+
+/Users/apple/hackingtools/rusthacking/rustcli/examples/target/debug/deps/rustcli-206d222e161a88cc.d: /Users/apple/.cargo/git/checkouts/rustcli-f076f9c590cb5e93/a87637c/src/lib.rs /Users/apple/.cargo/git/checkouts/rustcli-f076f9c590cb5e93/a87637c/src/action.rs /Users/apple/.cargo/git/checkouts/rustcli-f076f9c590cb5e93/a87637c/src/app.rs /Users/apple/.cargo/git/checkouts/rustcli-f076f9c590cb5e93/a87637c/src/command.rs /Users/apple/.cargo/git/checkouts/rustcli-f076f9c590cb5e93/a87637c/src/context.rs /Users/apple/.cargo/git/checkouts/rustcli-f076f9c590cb5e93/a87637c/src/error.rs /Users/apple/.cargo/git/checkouts/rustcli-f076f9c590cb5e93/a87637c/src/flag.rs /Users/apple/.cargo/git/checkouts/rustcli-f076f9c590cb5e93/a87637c/src/help.rs
+
+/Users/apple/.cargo/git/checkouts/rustcli-f076f9c590cb5e93/a87637c/src/lib.rs:
+/Users/apple/.cargo/git/checkouts/rustcli-f076f9c590cb5e93/a87637c/src/action.rs:
+/Users/apple/.cargo/git/checkouts/rustcli-f076f9c590cb5e93/a87637c/src/app.rs:
+/Users/apple/.cargo/git/checkouts/rustcli-f076f9c590cb5e93/a87637c/src/command.rs:
+/Users/apple/.cargo/git/checkouts/rustcli-f076f9c590cb5e93/a87637c/src/context.rs:
+/Users/apple/.cargo/git/checkouts/rustcli-f076f9c590cb5e93/a87637c/src/error.rs:
+/Users/apple/.cargo/git/checkouts/rustcli-f076f9c590cb5e93/a87637c/src/flag.rs:
+/Users/apple/.cargo/git/checkouts/rustcli-f076f9c590cb5e93/a87637c/src/help.rs:
